@@ -2,6 +2,7 @@ import os
 import re
 import json
 import logging
+from datetime import date
 import requests
 from bs4 import BeautifulSoup
 import spotipy
@@ -80,34 +81,55 @@ def clean_artist_name(title: str) -> str:
     return title
 
 
-def scrape_lunatico() -> list[str]:
-    """Scrape upcoming artists from barlunatico.com/music (Squarespace)."""
+def scrape_lunatico() -> list[dict]:
+    """Scrape upcoming events from barlunatico.com/music (Squarespace).
+    Returns list of {"artist": str, "date": str} dicts."""
     log.info("Scraping Lunatico...")
     headers = {"User-Agent": "Mozilla/5.0"}
     resp = requests.get("https://www.barlunatico.com/music", headers=headers, timeout=15)
     resp.raise_for_status()
     soup = BeautifulSoup(resp.text, "html.parser")
 
-    for selector in [
-        ".eventlist-title",
-        ".eventlist-title-link",
-        ".summary-title",
-        '[data-automation="event-title"]',
-        ".eventitem-column-meta h1",
+    events = []
+
+    # Try to get events as containers with both title and date
+    for container_sel, title_sel, date_sel in [
+        (".eventlist-event", ".eventlist-title", ".eventlist-meta-date"),
+        (".summary-item", ".summary-title", ".summary-metadata-item--date"),
+        (".eventlist-event", ".eventlist-title-link", ".eventlist-meta-date"),
     ]:
+        containers = soup.select(container_sel)
+        if containers:
+            for c in containers:
+                title_el = c.select_one(title_sel)
+                date_el = c.select_one(date_sel)
+                if title_el:
+                    artist = clean_artist_name(title_el.get_text(strip=True))
+                    if artist:
+                        events.append({
+                            "artist": artist,
+                            "date": date_el.get_text(strip=True) if date_el else "",
+                        })
+            if events:
+                log.info(f"Lunatico: {len(events)} events via '{container_sel}'")
+                return events
+
+    # Fallback: title-only selectors (no date)
+    for selector in [".eventlist-title", ".eventlist-title-link", ".summary-title"]:
         elements = soup.select(selector)
         if elements:
-            artists = [clean_artist_name(el.get_text(strip=True)) for el in elements]
-            artists = [a for a in artists if a]
-            log.info(f"Lunatico: {len(artists)} artists via '{selector}'")
-            return artists
+            events = [{"artist": a, "date": ""} for el in elements
+                      if (a := clean_artist_name(el.get_text(strip=True)))]
+            log.info(f"Lunatico: {len(events)} events via '{selector}' (no dates)")
+            return events
 
     log.warning("Lunatico: no events found — page structure may have changed")
     return []
 
 
-def scrape_barbes() -> list[str]:
-    """Scrape upcoming artists from viewcy.com/barbes using Playwright to intercept API calls."""
+def scrape_barbes() -> list[dict]:
+    """Scrape upcoming events from viewcy.com/barbes.
+    Returns list of {"artist": str, "date": str} dicts."""
     from playwright.sync_api import sync_playwright
 
     log.info("Scraping Barbes via Viewcy (headless)...")
@@ -122,7 +144,6 @@ def scrape_barbes() -> list[str]:
                 try:
                     body = response.json()
                     captured.append({"url": response.url, "body": body})
-                    log.info(f"Barbes: captured {response.url}: {str(body)[:200]}")
                 except Exception:
                     pass
 
@@ -130,8 +151,6 @@ def scrape_barbes() -> list[str]:
         page.goto("https://www.viewcy.com/barbes", wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(2000)
 
-        # Click the Events tab to show upcoming events
-        tab_clicked = False
         for label in ["Events", "Upcoming", "Schedule", "Shows"]:
             tab = page.locator(f"text={label}").first
             if tab.is_visible():
@@ -139,46 +158,45 @@ def scrape_barbes() -> list[str]:
                 tab.click()
                 page.wait_for_load_state("networkidle")
                 page.wait_for_timeout(3000)
-                tab_clicked = True
                 break
 
-        # Try to extract event titles from the rendered DOM
-        dom_titles = page.evaluate("""() => {
+        # Extract event titles and dates from the rendered DOM
+        dom_events = page.evaluate("""() => {
             const seen = new Set();
-            const titles = [];
-            // Look for event card headings / links
-            const selectors = ['h2', 'h3', '[class*="event"] h2', '[class*="event"] h3',
-                                '[class*="Event"] h2', '[class*="title"]', 'a[href*="/event"]'];
-            for (const sel of selectors) {
+            const events = [];
+            const titleSelectors = ['h2', 'h3', '[class*="Event"] h2', '[class*="title"]'];
+            for (const sel of titleSelectors) {
                 for (const el of document.querySelectorAll(sel)) {
                     const t = el.innerText?.trim();
-                    if (t && t.length > 2 && t.length < 120 && !seen.has(t)) {
-                        seen.add(t);
-                        titles.push(t);
-                    }
+                    if (!t || t.length < 3 || t.length > 120 || seen.has(t)) continue;
+                    seen.add(t);
+                    // Look for a nearby date element (sibling or parent's child)
+                    const parent = el.closest('[class*="event"], [class*="Event"], article, li') || el.parentElement;
+                    const dateEl = parent?.querySelector('time, [class*="date"], [class*="Date"]');
+                    events.push({ title: t, date: dateEl?.innerText?.trim() || "" });
                 }
             }
-            return titles;
+            return events;
         }""")
 
-        log.info(f"Barbes: DOM titles found: {dom_titles[:20]}")
+        log.info(f"Barbes: DOM events found: {[e['title'] for e in dom_events[:20]]}")
         browser.close()
 
     # First try structured API data
     for item in captured:
         titles = _extract_event_titles(item["body"])
         if titles:
-            artists = [clean_artist_name(t) for t in titles]
-            artists = [a for a in artists if a]
-            log.info(f"Barbes: {len(artists)} artists from API {item['url']}")
-            return artists
+            events = [{"artist": a, "date": ""} for t in titles
+                      if (a := clean_artist_name(t))]
+            log.info(f"Barbes: {len(events)} events from API {item['url']}")
+            return events
 
-    # Fall back to DOM titles
-    if dom_titles:
-        artists = [clean_artist_name(t) for t in dom_titles]
-        artists = [a for a in artists if a]
-        log.info(f"Barbes: {len(artists)} artists from DOM")
-        return artists
+    # Fall back to DOM
+    if dom_events:
+        events = [{"artist": a, "date": e["date"]} for e in dom_events
+                  if (a := clean_artist_name(e["title"]))]
+        log.info(f"Barbes: {len(events)} events from DOM")
+        return events
 
     log.warning("Barbes: no events found")
     return []
@@ -246,6 +264,54 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
     return [t["uri"] for t in tracks]
 
 
+def write_readme(lunatico: list[dict], barbes: list[dict]) -> None:
+    today = date.today().strftime("%B %d, %Y")
+    lines = [
+        "# Brooklyn Venues Weekly",
+        f"*Updated: {today}*\n",
+        "---\n",
+        "## Lunatico",
+        "*[barlunatico.com/music](https://www.barlunatico.com/music)*\n",
+    ]
+
+    if lunatico:
+        has_dates = any(e["date"] for e in lunatico)
+        if has_dates:
+            lines += ["| Date | Artist |", "|------|--------|"]
+            for e in lunatico:
+                lines.append(f"| {e['date']} | {e['artist']} |")
+        else:
+            for e in lunatico:
+                lines.append(f"- {e['artist']}")
+    else:
+        lines.append("*No events found*")
+
+    lines += [
+        "\n---\n",
+        "## Barbes",
+        "*[viewcy.com/barbes](https://www.viewcy.com/barbes)*\n",
+    ]
+
+    if barbes:
+        has_dates = any(e["date"] for e in barbes)
+        if has_dates:
+            lines += ["| Date | Artist |", "|------|--------|"]
+            for e in barbes:
+                lines.append(f"| {e['date']} | {e['artist']} |")
+        else:
+            for e in barbes:
+                lines.append(f"- {e['artist']}")
+    else:
+        lines.append("*No events found*")
+
+    lines += ["\n---\n", f"*Spotify playlist: **{PLAYLIST_NAME}***"]
+
+    with open("README.md", "w") as f:
+        f.write("\n".join(lines) + "\n")
+
+    log.info("README.md written")
+
+
 def update_playlist():
     sp = get_spotify_client()
 
@@ -256,14 +322,16 @@ def update_playlist():
         log.error("Both scrapers returned nothing — aborting to preserve existing playlist")
         return
 
-    # Deduplicate while preserving order
+    write_readme(lunatico, barbes)
+
+    # Deduplicate artists across both venues
     seen: set[str] = set()
     all_artists: list[str] = []
-    for name in lunatico + barbes:
-        key = name.lower()
+    for event in lunatico + barbes:
+        key = event["artist"].lower()
         if key not in seen:
             seen.add(key)
-            all_artists.append(name)
+            all_artists.append(event["artist"])
 
     log.info(f"\n=== {len(all_artists)} unique artists ===")
     for a in all_artists:
