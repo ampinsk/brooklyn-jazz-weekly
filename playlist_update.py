@@ -142,29 +142,39 @@ def scrape_barbes() -> list[dict]:
                   wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(4000)
 
-        # Dump all visible text elements with their structure
-        structure = page.evaluate("""() => {
-            const results = [];
-            for (const el of document.querySelectorAll('*')) {
-                const text = el.innerText?.trim();
-                if (!text || text.length < 3 || text.length > 150) continue;
-                const childText = Array.from(el.children).map(c => c.innerText?.trim()).join('');
-                if (childText.length > text.length * 0.8) continue;
-                results.push({
-                    tag: el.tagName,
-                    cls: el.className?.toString()?.slice(0, 80),
-                    text: text.slice(0, 100),
-                });
+        # Each event is an H1 (title) followed by a SPAN (date like "Sat, Mar 28 2026")
+        dom_events = page.evaluate("""() => {
+            const events = [];
+            const h1s = document.querySelectorAll('h1');
+            for (const h1 of h1s) {
+                const title = h1.innerText?.trim();
+                if (!title) continue;
+                // The date span is the next sibling span after the h1's parent
+                let dateText = '';
+                let el = h1.nextElementSibling || h1.parentElement?.nextElementSibling;
+                while (el) {
+                    const t = el.innerText?.trim();
+                    if (t && /[A-Z][a-z]{2},\\s/.test(t)) { dateText = t; break; }
+                    el = el.nextElementSibling;
+                }
+                events.push({ title, date: dateText });
             }
-            return results.slice(0, 300);
+            return events;
         }""")
-
-        log.info(f"Barbes embed: {len(structure)} elements")
-        for item in structure:
-            log.info(f"  <{item['tag']} class='{item['cls']}'> {item['text']!r}")
 
         browser.close()
 
+    if dom_events:
+        events = [{"artist": a, "date": e["date"].split(' ')[0:3] and ' '.join(e["date"].split(',')[0:2]) or e["date"]}
+                  for e in dom_events if (a := clean_artist_name(e["title"]))]
+        # Simplify date: "Sat, Mar 28 2026" → "Sat Mar 28"
+        for ev in events:
+            parts = ev["date"].replace(',', '').split()
+            ev["date"] = ' '.join(parts[:3]) if len(parts) >= 3 else ev["date"]
+        log.info(f"Barbes: {len(events)} events from embed")
+        return events
+
+    log.warning("Barbes: no events found in embed")
     return []
 
 
