@@ -63,43 +63,41 @@ def scrape_lunatico() -> list[str]:
     return []
 
 
-BARBES_VIEWCY_ID = "28f20bcb-d956-43ae-8a1c-9438c8a081b9"
-
-
 def scrape_barbes() -> list[str]:
-    """Scrape upcoming artists from Barbes via Viewcy's backend API."""
-    log.info("Scraping Barbes via Viewcy API...")
-    headers = {"User-Agent": "Mozilla/5.0"}
-    urls = [
-        f"https://backend.viewcy.com/client_side_api/organizations/{BARBES_VIEWCY_ID}/events",
-        f"https://backend.viewcy.com/client_side_api/events?organization_id={BARBES_VIEWCY_ID}&upcoming=true",
-        f"https://backend.viewcy.com/client_side_api/events?organization_id={BARBES_VIEWCY_ID}",
-    ]
+    """Scrape upcoming artists from viewcy.com/barbes using Playwright to intercept API calls."""
+    from playwright.sync_api import sync_playwright
 
-    data = None
-    for url in urls:
-        resp = requests.get(url, headers=headers, timeout=15)
-        log.info(f"Barbes: GET {url} → {resp.status_code}, {len(resp.text)} bytes: {resp.text[:300]}")
-        if resp.ok and resp.text.strip():
-            try:
-                data = resp.json()
-                break
-            except Exception:
-                continue
+    log.info("Scraping Barbes via Viewcy (headless)...")
+    captured: list[dict] = []
 
-    if data is None:
-        log.warning("Barbes: no usable API response found")
-        return []
-    titles = _extract_event_titles(data)
+    with sync_playwright() as p:
+        browser = p.chromium.launch()
+        page = browser.new_page()
 
-    if not titles:
-        log.warning(f"Barbes: got response but found no event titles. Raw: {str(data)[:500]}")
-        return []
+        def handle_response(response):
+            if "backend.viewcy.com" in response.url and response.status == 200:
+                try:
+                    body = response.json()
+                    captured.append({"url": response.url, "body": body})
+                    log.info(f"Barbes: captured {response.url}: {str(body)[:200]}")
+                except Exception:
+                    pass
 
-    artists = [clean_artist_name(t) for t in titles]
-    artists = [a for a in artists if a]
-    log.info(f"Barbes: {len(artists)} artists")
-    return artists
+        page.on("response", handle_response)
+        page.goto("https://www.viewcy.com/barbes", wait_until="networkidle", timeout=30000)
+        page.wait_for_timeout(3000)
+        browser.close()
+
+    for item in captured:
+        titles = _extract_event_titles(item["body"])
+        if titles:
+            artists = [clean_artist_name(t) for t in titles]
+            artists = [a for a in artists if a]
+            log.info(f"Barbes: {len(artists)} artists from {item['url']}")
+            return artists
+
+    log.warning(f"Barbes: no event titles found across {len(captured)} captured responses")
+    return []
 
 
 def _extract_event_titles(data: object) -> list[str]:
@@ -154,7 +152,11 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
         log.warning(f"  MISMATCH: searched {artist_name!r}, got {artist['name']!r} — skipping")
         return []
 
-    tracks = sp._get(f"artists/{artist['id']}/top-tracks", market="US")["tracks"][:TRACKS_PER_ARTIST]
+    track_results = sp.search(q=f'artist:"{artist["name"]}"', type="track", limit=TRACKS_PER_ARTIST)
+    tracks = track_results["tracks"]["items"]
+    if not tracks:
+        log.warning(f"  No tracks found for {artist['name']!r}")
+        return []
     log.info(f"  {artist['name']!r}: {[t['name'] for t in tracks]}")
     return [t["uri"] for t in tracks]
 
