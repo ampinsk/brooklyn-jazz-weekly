@@ -24,7 +24,7 @@ def get_spotify_client() -> spotipy.Spotify:
         scope=SCOPE,
     )
     token_info = sp_oauth.refresh_access_token(os.environ["SPOTIFY_REFRESH_TOKEN"])
-    return spotipy.Spotify(auth=token_info["access_token"])
+    return spotipy.Spotify(auth=token_info["access_token"], retries=0)
 
 
 VENUE_NAMES = {"barbès", "barbes", "lunatico", "bar lunatico"}
