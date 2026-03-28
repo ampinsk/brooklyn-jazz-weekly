@@ -11,7 +11,7 @@ logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 log = logging.getLogger(__name__)
 
 PLAYLIST_NAME = "Brooklyn Venues Weekly"
-SCOPE = "playlist-modify-public playlist-modify-private"
+SCOPE = "playlist-read-private playlist-modify-public playlist-modify-private"
 TRACKS_PER_ARTIST = 3
 
 
@@ -85,7 +85,18 @@ def scrape_barbes() -> list[str]:
 
         page.on("response", handle_response)
         page.goto("https://www.viewcy.com/barbes", wait_until="networkidle", timeout=30000)
-        page.wait_for_timeout(3000)
+        page.wait_for_timeout(2000)
+
+        # Try clicking an Events/Upcoming tab to trigger event data loading
+        for label in ["Events", "Upcoming", "Schedule", "Shows"]:
+            tab = page.locator(f"text={label}").first
+            if tab.is_visible():
+                log.info(f"Barbes: clicking '{label}' tab")
+                tab.click()
+                page.wait_for_timeout(3000)
+                break
+
+        page.wait_for_timeout(2000)
         browser.close()
 
     for item in captured:

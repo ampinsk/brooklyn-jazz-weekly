@@ -14,7 +14,7 @@ sp_oauth = SpotifyOAuth(
     client_id=CLIENT_ID,
     client_secret=CLIENT_SECRET,
     redirect_uri="http://127.0.0.1:8888/callback",
-    scope="playlist-modify-public playlist-modify-private",
+    scope="playlist-read-private playlist-modify-public playlist-modify-private",
 )
 
 auth_url = sp_oauth.get_authorize_url()
