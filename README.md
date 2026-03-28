@@ -1,4 +1,4 @@
-# Brooklyn Venues Weekly
+# Brooklyn Jazz Weekly
 *Updated: March 28, 2026*
 
 ---
