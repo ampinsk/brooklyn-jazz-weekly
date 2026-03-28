@@ -74,9 +74,9 @@ def scrape_barbes() -> list[str]:
         browser = p.chromium.launch()
         page = browser.new_page()
 
-        # Intercept any JSON response that looks like an events list
+        # Intercept all JSON API responses and log them for event data
         def handle_response(response):
-            if "event" in response.url.lower() and response.status == 200:
+            if response.status == 200 and "viewcy.com" in response.url:
                 try:
                     body = response.json()
                     captured.append({"url": response.url, "body": body})
@@ -101,9 +101,9 @@ def scrape_barbes() -> list[str]:
             break
 
     if not artists:
-        log.warning(f"Barbes: no events extracted. Captured {len(captured)} event responses:")
+        log.warning(f"Barbes: no events extracted. Captured {len(captured)} viewcy.com responses:")
         for item in captured:
-            log.info(f"  {item['url']}: {str(item['body'])[:200]}")
+            log.info(f"  {item['url']}: {str(item['body'])[:300]}")
 
     return artists
 
@@ -160,7 +160,7 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
         log.warning(f"  MISMATCH: searched {artist_name!r}, got {artist['name']!r} — skipping")
         return []
 
-    tracks = sp.artist_top_tracks(artist["id"], country="US")["tracks"][:TRACKS_PER_ARTIST]
+    tracks = sp.artist_top_tracks(artist["id"], country="from_token")["tracks"][:TRACKS_PER_ARTIST]
     log.info(f"  {artist['name']!r}: {[t['name'] for t in tracks]}")
     return [t["uri"] for t in tracks]
 
