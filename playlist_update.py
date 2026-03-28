@@ -137,38 +137,31 @@ def scrape_barbes() -> list[dict]:
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
-        page.goto("https://www.barbesbrooklyn.com/events", wait_until="networkidle", timeout=30000)
-        page.wait_for_timeout(3000)
+        # The Barbes website embeds Viewcy — load the embed directly
+        page.goto("https://viewcyembed.com/barbes/000000/FFFCFC/850505",
+                  wait_until="networkidle", timeout=30000)
+        page.wait_for_timeout(4000)
 
-        # Scroll to trigger lazy-loaded widgets
-        page.evaluate("window.scrollTo(0, document.body.scrollHeight)")
-        page.wait_for_timeout(3000)
-        page.evaluate("window.scrollTo(0, 0)")
-        page.wait_for_timeout(2000)
-
-        # Try Wix embedded warmup/events data first
-        wix_data = page.evaluate("""() => {
-            const ids = ['wix-warmup-data', 'wix-events-widget', 'wix-essential-viewer-model',
-                         'wix-viewer-model'];
-            const out = {};
-            for (const id of ids) {
-                const el = document.getElementById(id);
-                if (el) out[id] = el.textContent?.slice(0, 2000);
+        # Dump all visible text elements with their structure
+        structure = page.evaluate("""() => {
+            const results = [];
+            for (const el of document.querySelectorAll('*')) {
+                const text = el.innerText?.trim();
+                if (!text || text.length < 3 || text.length > 150) continue;
+                const childText = Array.from(el.children).map(c => c.innerText?.trim()).join('');
+                if (childText.length > text.length * 0.8) continue;
+                results.push({
+                    tag: el.tagName,
+                    cls: el.className?.toString()?.slice(0, 80),
+                    text: text.slice(0, 100),
+                });
             }
-            // Also try window warmup
-            if (window.__WIX_WARMUP_DATA__) out['__WIX_WARMUP_DATA__'] = JSON.stringify(window.__WIX_WARMUP_DATA__).slice(0, 2000);
-            return out;
+            return results.slice(0, 300);
         }""")
 
-        log.info(f"Barbes Wix data keys: {list(wix_data.keys())}")
-        for k, v in wix_data.items():
-            log.info(f"  {k}: {v[:300]}")
-
-        # Check for iframes (Wix Events sometimes renders in an iframe)
-        frames = page.frames
-        log.info(f"Barbes: {len(frames)} frames on page")
-        for frame in frames:
-            log.info(f"  frame url: {frame.url}")
+        log.info(f"Barbes embed: {len(structure)} elements")
+        for item in structure:
+            log.info(f"  <{item['tag']} class='{item['cls']}'> {item['text']!r}")
 
         browser.close()
 
