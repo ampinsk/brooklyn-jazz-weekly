@@ -78,6 +78,11 @@ def clean_artist_name(title: str) -> str:
     # Skip suspiciously generic single words that tend to produce wrong Spotify matches
     if re.match(r'^[A-Z][A-Za-z]+s?$', title) and len(title.split()) == 1 and len(title) < 12:
         return ""
+    # Title-case names that are fully uppercase (Barbes events come in all caps)
+    if title == title.upper() and any(c.isalpha() for c in title):
+        title = title.title()
+        # Fix apostrophe title-case issue: "It'S" → "It's"
+        title = re.sub(r"'([A-Z])", lambda m: "'" + m.group(1).lower(), title)
     return title
 
 
@@ -236,8 +241,13 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
 
     artist = items[0]
     a, b = artist["name"].lower(), artist_name.lower()
+    # Reject if names don't overlap, or if the result is more than 30% longer
+    # (catches "Super Yamba Band" matching "Kaleta & Super Yamba Band")
     if a not in b and b not in a:
         log.warning(f"  MISMATCH: searched {artist_name!r}, got {artist['name']!r} — skipping")
+        return []
+    if b in a and len(a) > len(b) * 1.3:
+        log.warning(f"  MISMATCH (superset): searched {artist_name!r}, got {artist['name']!r} — skipping")
         return []
 
     track_results = sp.search(q=f'artist:"{artist["name"]}"', type="track", limit=TRACKS_PER_ARTIST)
