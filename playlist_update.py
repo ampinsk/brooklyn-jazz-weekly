@@ -11,7 +11,7 @@ from spotipy.oauth2 import SpotifyOAuth
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 log = logging.getLogger(__name__)
 
-PLAYLIST_NAME = "Brooklyn Venues Weekly"
+PLAYLIST_NAME = "Brooklyn Jazz Weekly"
 SCOPE = "playlist-read-private playlist-modify-public playlist-modify-private"
 TRACKS_PER_ARTIST = 3
 
@@ -287,7 +287,7 @@ def write_readme(lunatico: list[dict], barbes: list[dict]) -> None:
     barbes = dedup_events(barbes)
     today = date.today().strftime("%B %d, %Y")
     lines = [
-        "# Brooklyn Venues Weekly",
+        "# Brooklyn Jazz Weekly",
         f"*Updated: {today}*\n",
         "---\n",
         "## Lunatico",
