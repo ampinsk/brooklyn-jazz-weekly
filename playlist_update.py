@@ -87,27 +87,57 @@ def scrape_barbes() -> list[str]:
         page.goto("https://www.viewcy.com/barbes", wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(2000)
 
-        # Try clicking an Events/Upcoming tab to trigger event data loading
+        # Click the Events tab to show upcoming events
+        tab_clicked = False
         for label in ["Events", "Upcoming", "Schedule", "Shows"]:
             tab = page.locator(f"text={label}").first
             if tab.is_visible():
                 log.info(f"Barbes: clicking '{label}' tab")
                 tab.click()
+                page.wait_for_load_state("networkidle")
                 page.wait_for_timeout(3000)
+                tab_clicked = True
                 break
 
-        page.wait_for_timeout(2000)
+        # Try to extract event titles from the rendered DOM
+        dom_titles = page.evaluate("""() => {
+            const seen = new Set();
+            const titles = [];
+            // Look for event card headings / links
+            const selectors = ['h2', 'h3', '[class*="event"] h2', '[class*="event"] h3',
+                                '[class*="Event"] h2', '[class*="title"]', 'a[href*="/event"]'];
+            for (const sel of selectors) {
+                for (const el of document.querySelectorAll(sel)) {
+                    const t = el.innerText?.trim();
+                    if (t && t.length > 2 && t.length < 120 && !seen.has(t)) {
+                        seen.add(t);
+                        titles.push(t);
+                    }
+                }
+            }
+            return titles;
+        }""")
+
+        log.info(f"Barbes: DOM titles found: {dom_titles[:20]}")
         browser.close()
 
+    # First try structured API data
     for item in captured:
         titles = _extract_event_titles(item["body"])
         if titles:
             artists = [clean_artist_name(t) for t in titles]
             artists = [a for a in artists if a]
-            log.info(f"Barbes: {len(artists)} artists from {item['url']}")
+            log.info(f"Barbes: {len(artists)} artists from API {item['url']}")
             return artists
 
-    log.warning(f"Barbes: no event titles found across {len(captured)} captured responses")
+    # Fall back to DOM titles
+    if dom_titles:
+        artists = [clean_artist_name(t) for t in dom_titles]
+        artists = [a for a in artists if a]
+        log.info(f"Barbes: {len(artists)} artists from DOM")
+        return artists
+
+    log.warning("Barbes: no events found")
     return []
 
 
@@ -143,9 +173,10 @@ def find_or_create_playlist(sp: spotipy.Spotify, name: str) -> str:
             if pl["name"] == name:
                 return pl["id"]
         playlists = sp.next(playlists) if playlists["next"] else None
-    pl = sp.user_playlist_create(
-        user_id, name, public=False,
-        description="Weekly: upcoming artists at Barbes & Lunatico, Brooklyn"
+    pl = sp._post(
+        "me/playlists",
+        payload={"name": name, "public": False,
+                 "description": "Weekly: upcoming artists at Barbes & Lunatico, Brooklyn"}
     )
     return pl["id"]
 
