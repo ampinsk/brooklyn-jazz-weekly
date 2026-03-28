@@ -128,77 +128,43 @@ def scrape_lunatico() -> list[dict]:
 
 
 def scrape_barbes() -> list[dict]:
-    """Scrape upcoming events from viewcy.com/barbes.
+    """Scrape upcoming events from barbesbrooklyn.com/events (Wix, JS-rendered).
     Returns list of {"artist": str, "date": str} dicts."""
     from playwright.sync_api import sync_playwright
 
-    log.info("Scraping Barbes via Viewcy (headless)...")
-    captured: list[dict] = []
+    log.info("Scraping Barbes website (headless)...")
 
     with sync_playwright() as p:
         browser = p.chromium.launch()
         page = browser.new_page()
+        page.goto("https://www.barbesbrooklyn.com/events", wait_until="networkidle", timeout=30000)
+        page.wait_for_timeout(3000)
 
-        def handle_response(response):
-            if "backend.viewcy.com" in response.url and response.status == 200:
-                try:
-                    body = response.json()
-                    captured.append({"url": response.url, "body": body})
-                except Exception:
-                    pass
-
-        page.on("response", handle_response)
-        page.goto("https://www.viewcy.com/barbes", wait_until="networkidle", timeout=30000)
-        page.wait_for_timeout(2000)
-
-        for label in ["Events", "Upcoming", "Schedule", "Shows"]:
-            tab = page.locator(f"text={label}").first
-            if tab.is_visible():
-                log.info(f"Barbes: clicking '{label}' tab")
-                tab.click()
-                page.wait_for_load_state("networkidle")
-                page.wait_for_timeout(3000)
-                break
-
-        # Extract event titles and dates from the rendered DOM
-        dom_events = page.evaluate("""() => {
-            const seen = new Set();
-            const events = [];
-            const titleSelectors = ['h2', 'h3', '[class*="Event"] h2', '[class*="title"]'];
-            for (const sel of titleSelectors) {
-                for (const el of document.querySelectorAll(sel)) {
-                    const t = el.innerText?.trim();
-                    if (!t || t.length < 3 || t.length > 120 || seen.has(t)) continue;
-                    seen.add(t);
-                    // Look for a nearby date element (sibling or parent's child)
-                    const parent = el.closest('[class*="event"], [class*="Event"], article, li') || el.parentElement;
-                    const dateEl = parent?.querySelector('time, [class*="date"], [class*="Date"]');
-                    events.push({ title: t, date: dateEl?.innerText?.trim() || "" });
-                }
+        # Dump the full rendered structure so we can find the right selectors
+        structure = page.evaluate("""() => {
+            const results = [];
+            // Walk every element and log tag, class, and text for non-empty leaf-ish nodes
+            for (const el of document.querySelectorAll('*')) {
+                const text = el.innerText?.trim();
+                if (!text || text.length < 3 || text.length > 150) continue;
+                // Only elements where the text is mostly in this element (not a container)
+                const childText = Array.from(el.children).map(c => c.innerText?.trim()).join('');
+                if (childText.length > text.length * 0.8) continue;
+                results.push({
+                    tag: el.tagName,
+                    cls: el.className?.toString()?.slice(0, 80),
+                    text: text.slice(0, 100),
+                });
             }
-            return events;
+            return results.slice(0, 200);
         }""")
 
-        log.info(f"Barbes: DOM events found: {[e['title'] for e in dom_events[:20]]}")
+        log.info("Barbes page structure dump:")
+        for item in structure:
+            log.info(f"  <{item['tag']} class='{item['cls']}'> {item['text']!r}")
+
         browser.close()
 
-    # First try structured API data
-    for item in captured:
-        titles = _extract_event_titles(item["body"])
-        if titles:
-            events = [{"artist": a, "date": ""} for t in titles
-                      if (a := clean_artist_name(t))]
-            log.info(f"Barbes: {len(events)} events from API {item['url']}")
-            return events
-
-    # Fall back to DOM
-    if dom_events:
-        events = [{"artist": a, "date": e["date"]} for e in dom_events
-                  if (a := clean_artist_name(e["title"]))]
-        log.info(f"Barbes: {len(events)} events from DOM")
-        return events
-
-    log.warning("Barbes: no events found")
     return []
 
 
