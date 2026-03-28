@@ -70,20 +70,26 @@ def scrape_barbes() -> list[str]:
     """Scrape upcoming artists from Barbes via Viewcy's backend API."""
     log.info("Scraping Barbes via Viewcy API...")
     headers = {"User-Agent": "Mozilla/5.0"}
-    url = f"https://backend.viewcy.com/client_side_api/organizations/{BARBES_VIEWCY_ID}/events"
-    resp = requests.get(url, headers=headers, timeout=15)
+    urls = [
+        f"https://backend.viewcy.com/client_side_api/organizations/{BARBES_VIEWCY_ID}/events",
+        f"https://backend.viewcy.com/client_side_api/events?organization_id={BARBES_VIEWCY_ID}&upcoming=true",
+        f"https://backend.viewcy.com/client_side_api/events?organization_id={BARBES_VIEWCY_ID}",
+    ]
 
-    if not resp.ok:
-        log.warning(f"Barbes: API returned {resp.status_code} — trying events list endpoint")
-        url = f"https://backend.viewcy.com/client_side_api/events?organization_id={BARBES_VIEWCY_ID}&upcoming=true"
+    data = None
+    for url in urls:
         resp = requests.get(url, headers=headers, timeout=15)
+        log.info(f"Barbes: GET {url} → {resp.status_code}, {len(resp.text)} bytes: {resp.text[:300]}")
+        if resp.ok and resp.text.strip():
+            try:
+                data = resp.json()
+                break
+            except Exception:
+                continue
 
-    if not resp.ok:
-        log.warning(f"Barbes: all API attempts failed ({resp.status_code})")
+    if data is None:
+        log.warning("Barbes: no usable API response found")
         return []
-
-    data = resp.json()
-    log.debug(f"Barbes raw response: {str(data)[:500]}")
     titles = _extract_event_titles(data)
 
     if not titles:
