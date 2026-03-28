@@ -9,7 +9,6 @@
 | Date | Artist |
 |------|--------|
 | Mar 26, 2026 | Malaya Sol & The Soleros |
-| Mar 26, 2026 | Malaya Sol & The Soleros |
 | Mar 27, 2026 | Anant Pradhan |
 | Mar 28, 2026 | Anything Mose! |
 | Mar 29, 2026 | Chris Morrissey |
@@ -41,7 +40,7 @@
 - EUREKA SHOES
 - BIG LAZY
 - DIRTY DESMONDS
-- BRANDON SEABROOK.
+- BRANDON SEABROOK
 - Simon Hanes' TSONS OF TSUNAMI
 - BANDA DE LOS MUERTOS
 - GIANCARLO VULCANO's RADIO HOUR
