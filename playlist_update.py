@@ -72,7 +72,12 @@ def clean_artist_name(title: str) -> str:
     title = re.sub(r"\.\s+\w+(?:\s+\w+)+$", "", title)  # ". Multi word phrase"
 
     title = title.strip()
-    return title if len(title) >= 3 else ""
+    if len(title) < 3:
+        return ""
+    # Skip suspiciously generic single words that tend to produce wrong Spotify matches
+    if re.match(r'^[A-Z][A-Za-z]+s?$', title) and len(title.split()) == 1 and len(title) < 12:
+        return ""
+    return title
 
 
 def scrape_lunatico() -> list[str]:
