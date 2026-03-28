@@ -72,7 +72,7 @@ def clean_artist_name(title: str) -> str:
     title = re.sub(r"\s+(?:SINGLE\s+RELEASE|[Ii]n\s+[Rr]esidence)\b.*$", "", title)
     title = re.sub(r"\.\s+\w+(?:\s+\w+)+$", "", title)  # ". Multi word phrase"
 
-    title = title.strip()
+    title = title.strip().rstrip(".,;:")  # strip trailing punctuation
     if len(title) < 3:
         return ""
     # Skip suspiciously generic single words that tend to produce wrong Spotify matches
@@ -264,7 +264,20 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
     return [t["uri"] for t in tracks]
 
 
+def dedup_events(events: list[dict]) -> list[dict]:
+    seen: set[tuple] = set()
+    out = []
+    for e in events:
+        key = (e["artist"].lower(), e["date"])
+        if key not in seen:
+            seen.add(key)
+            out.append(e)
+    return out
+
+
 def write_readme(lunatico: list[dict], barbes: list[dict]) -> None:
+    lunatico = dedup_events(lunatico)
+    barbes = dedup_events(barbes)
     today = date.today().strftime("%B %d, %Y")
     lines = [
         "# Brooklyn Venues Weekly",
