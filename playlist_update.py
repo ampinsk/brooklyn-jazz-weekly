@@ -2,7 +2,7 @@ import os
 import re
 import json
 import logging
-from datetime import date
+from datetime import date, datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
 import spotipy
@@ -177,6 +177,8 @@ def scrape_barbes() -> list[dict]:
 
     if dom_events:
         events = []
+        today = date.today()
+        cutoff = today + timedelta(days=7)
         for e in dom_events:
             a = clean_artist_name(e["title"])
             if not a:
@@ -184,8 +186,18 @@ def scrape_barbes() -> list[dict]:
             # "Sat, Mar 28 2026" → "Sat Mar 28"
             parts = e["date"].replace(',', '').split()
             date_str = ' '.join(parts[:3]) if len(parts) >= 3 else e["date"]
+            # Filter to events within the next 14 days
+            if date_str:
+                try:
+                    parsed = datetime.strptime(f"{date_str} {today.year}", "%a %b %d %Y").date()
+                    if parsed < today:
+                        parsed = parsed.replace(year=today.year + 1)
+                    if parsed > cutoff:
+                        continue
+                except ValueError:
+                    pass  # Unparseable date — include it
             events.append({"artist": a, "date": date_str})
-        log.info(f"Barbes: {len(events)} events from embed")
+        log.info(f"Barbes: {len(events)} events in next 7 days (from embed)")
         return events
 
     log.warning("Barbes: no events found in embed")
