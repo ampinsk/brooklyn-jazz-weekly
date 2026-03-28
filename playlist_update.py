@@ -26,15 +26,53 @@ def get_spotify_client() -> spotipy.Spotify:
     return spotipy.Spotify(auth=token_info["access_token"])
 
 
+VENUE_NAMES = {"barbès", "barbes", "lunatico", "bar lunatico"}
+
+
 def clean_artist_name(title: str) -> str:
     """Extract the primary artist name from a raw event title."""
-    title = re.sub(r"\s*\([^)]*\)", "", title)         # remove (parentheticals)
-    title = re.split(r"\s+[Ww]/\s*", title)[0]         # split on w/
-    title = re.split(r"\s+[Ww]ith\s+", title)[0]       # split on "with"
+    title = title.strip()
+
+    # Filter out venue names
+    if title.lower() in VENUE_NAMES:
+        return ""
+
+    # "X presents: Y" or "X Presents: Y" → the actual artist is Y
+    m = re.search(r"\bpresents?:\s*(.+)", title, re.IGNORECASE)
+    if m:
+        title = m.group(1).strip()
+    else:
+        # "X presents Y" (no colon) → artist is Y
+        m = re.search(r"\bpresents\s+(.+)", title, re.IGNORECASE)
+        if m:
+            title = m.group(1).strip()
+        else:
+            # "X presents" with nothing after → not an artist entry
+            if re.search(r"\bpresents\s*$", title, re.IGNORECASE):
+                return ""
+
+    # Remove parenthetical guest lists
+    title = re.sub(r"\s*\([^)]*\)", "", title)
+    # Split on " + " (multiple billed artists — take the first)
+    title = re.split(r"\s+\+\s+", title)[0]
+    # Split on "w/" (guest)
+    title = re.split(r"\s+[Ww]/\s*", title)[0]
+    # Split on " with " (guest)
+    title = re.split(r"\s+[Ww]ith\s+", title)[0]
+    # Strip subtitle after ": "
     parts = re.split(r":\s+", title)
-    if len(parts) > 1 and len(parts[0].strip()) > 2:   # strip subtitle after colon
+    if len(parts) > 1 and len(parts[0].strip()) > 2:
         title = parts[0]
-    return title.strip()
+    # Strip " - remix/release/subtitle"
+    title = re.split(r"\s+-\s+", title)[0]
+    # Strip "plays the music of ..."
+    title = re.split(r"\s+plays\s+the\s+music\s+of\b", title, flags=re.IGNORECASE)[0]
+    # Strip trailing descriptive phrases: "SINGLE RELEASE", "In residence ...", ". sentence"
+    title = re.sub(r"\s+(?:SINGLE\s+RELEASE|[Ii]n\s+[Rr]esidence)\b.*$", "", title)
+    title = re.sub(r"\.\s+\w+(?:\s+\w+)+$", "", title)  # ". Multi word phrase"
+
+    title = title.strip()
+    return title if len(title) >= 3 else ""
 
 
 def scrape_lunatico() -> list[str]:
