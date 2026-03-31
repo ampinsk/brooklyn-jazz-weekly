@@ -90,6 +90,22 @@ def clean_artist_name(title: str) -> str:
     return title
 
 
+def _filter_future_events(events: list[dict], date_fmt: str) -> list[dict]:
+    """Remove events whose date is in the past. Events with unparseable dates are kept."""
+    today = date.today()
+    out = []
+    for e in events:
+        if e["date"]:
+            try:
+                parsed = datetime.strptime(e["date"], date_fmt).date()
+                if parsed < today:
+                    continue
+            except ValueError:
+                pass
+        out.append(e)
+    return out
+
+
 def scrape_lunatico() -> list[dict]:
     """Scrape upcoming events from barlunatico.com/music (Squarespace).
     Returns list of {"artist": str, "date": str} dicts."""
@@ -120,6 +136,7 @@ def scrape_lunatico() -> list[dict]:
                             "date": date_el.get_text(strip=True) if date_el else "",
                         })
             if events:
+                events = _filter_future_events(events, "%b %d, %Y")
                 log.info(f"Lunatico: {len(events)} events via '{container_sel}'")
                 return events
 
