@@ -78,13 +78,14 @@ def clean_artist_name(title: str) -> str:
     # Skip suspiciously generic single words that tend to produce wrong Spotify matches
     if re.match(r'^[A-Z][A-Za-z]+s?$', title) and len(title.split()) == 1 and len(title) < 12:
         return ""
-    # Title-case words that are fully uppercase and longer than 3 letters
-    # (>3 avoids mangling acronyms like "GTO", "DJ"; apostrophe suffix is handled separately)
+    # Title-case words that are fully uppercase (>=2 letters), preserving known acronyms
+    _KEEP_CAPS = {"DJ", "MC", "GTO", "NYC", "NY", "SF", "UK", "US"}
+
     def fix_word(w):
         base, sep, suffix = w.partition("'")
         letters = [c for c in base if c.isalpha()]
-        if len(letters) > 3 and all(c.isupper() for c in letters):
-            return base.capitalize() + (sep + suffix if sep else "")
+        if len(letters) >= 2 and all(c.isupper() for c in letters) and base not in _KEEP_CAPS:
+            return base.capitalize() + (sep + suffix.lower() if sep else "")
         return w
     title = " ".join(fix_word(w) for w in title.split())
     return title
@@ -169,28 +170,20 @@ def scrape_barbes() -> list[dict]:
                   wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(4000)
 
-        # Structure: each event card has H1 (title) and a SPAN matching "Day, Mon DD YYYY"
+        # Walk all H1s and SPANs in DOM order; track the most recently seen date span
+        # so each event gets the date that precedes it, not the next section's date.
         dom_events = page.evaluate("""() => {
             const DATE_RE = /^[A-Z][a-z]{2},\\s[A-Z][a-z]{2}\\s\\d/;
             const events = [];
-            for (const h1 of document.querySelectorAll('h1')) {
-                const title = h1.innerText?.trim();
-                if (!title) continue;
-                // Search for a date span within the same parent container
-                const container = h1.parentElement;
-                let dateText = '';
-                for (const span of container.querySelectorAll('span')) {
-                    const t = span.innerText?.trim();
-                    if (t && DATE_RE.test(t)) { dateText = t; break; }
+            let currentDate = '';
+            for (const el of document.querySelectorAll('h1, span')) {
+                if (el.tagName === 'SPAN') {
+                    const t = el.innerText?.trim();
+                    if (t && DATE_RE.test(t)) currentDate = t;
+                } else {
+                    const title = el.innerText?.trim();
+                    if (title) events.push({ title, date: currentDate });
                 }
-                // If not found in parent, try grandparent
-                if (!dateText) {
-                    for (const span of (container.parentElement || container).querySelectorAll('span')) {
-                        const t = span.innerText?.trim();
-                        if (t && DATE_RE.test(t)) { dateText = t; break; }
-                    }
-                }
-                events.push({ title, date: dateText });
             }
             return events;
         }""")
