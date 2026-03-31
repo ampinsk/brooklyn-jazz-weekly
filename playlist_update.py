@@ -287,7 +287,7 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
         log.warning(f"  MISMATCH (superset): searched {artist_name!r}, got {artist['name']!r} — skipping")
         return []
 
-    top = sp._get("artists/" + artist["id"] + "/top-tracks")
+    top = sp._get("artists/" + artist["id"] + "/top-tracks", market="US")
     tracks = top["tracks"][:TRACKS_PER_ARTIST]
     if not tracks:
         log.warning(f"  No tracks found for {artist['name']!r}")
