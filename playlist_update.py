@@ -292,7 +292,7 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
     if not tracks:
         log.warning(f"  No tracks found for {artist['name']!r}")
         return []
-    tracks.sort(key=lambda t: t["popularity"], reverse=True)
+    tracks.sort(key=lambda t: t.get("popularity", 0), reverse=True)
     tracks = tracks[:TRACKS_PER_ARTIST]
     log.info(f"  {artist['name']!r}: {[t['name'] for t in tracks]}")
     return [t["uri"] for t in tracks]
