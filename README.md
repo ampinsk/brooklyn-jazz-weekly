@@ -8,15 +8,15 @@
 
 | Date | Artist |
 |------|--------|
-| Mar 31, 2026 | Kayla Williams Quartet |
-| Apr 1, 2026 | Jim Oblon |
-| Apr 2, 2026 | Luisito Quintero & 3rd Element |
-| Apr 3, 2026 | Binky Griptite Orchestra |
-| Apr 4, 2026 | Super Yamba Band |
-| Apr 5, 2026 | Vardan Ovsepian Quintet ft. Roni Eytan | Vinícius Gomes | Josh Davis |
-| Apr 6, 2026 | Gto Trio |
-| Apr 7, 2026 | Santiago Leibson Trio |
-| Apr 9, 2026 | Kavita Shah Quintet ft. Leo Genovese | François Moutin | Vinícius Gomes | Ferenc Nemeth |
+| Tue Mar 31 | Kayla Williams Quartet |
+| Wed Apr 01 | Jim Oblon |
+| Thu Apr 02 | Luisito Quintero & 3rd Element |
+| Fri Apr 03 | Binky Griptite Orchestra |
+| Sat Apr 04 | Super Yamba Band |
+| Sun Apr 05 | Vardan Ovsepian Quintet ft. Roni Eytan | Vinícius Gomes | Josh Davis |
+| Mon Apr 06 | Gto Trio |
+| Tue Apr 07 | Santiago Leibson Trio |
+| Thu Apr 09 | Kavita Shah Quintet ft. Leo Genovese | François Moutin | Vinícius Gomes | Ferenc Nemeth |
 
 ---
 
