@@ -78,11 +78,15 @@ def clean_artist_name(title: str) -> str:
     # Skip suspiciously generic single words that tend to produce wrong Spotify matches
     if re.match(r'^[A-Z][A-Za-z]+s?$', title) and len(title.split()) == 1 and len(title) < 12:
         return ""
-    # Title-case names that are fully uppercase (Barbes events come in all caps)
-    if any(c.isalpha() for c in title) and all(c.isupper() for c in title if c.isalpha()):
-        title = title.title()
-        # Fix apostrophe title-case issue: "It'S" → "It's"
-        title = re.sub(r"'([A-Z])", lambda m: "'" + m.group(1).lower(), title)
+    # Title-case any word that is fully uppercase (handles fully-caps and partially-caps names)
+    def fix_word(w):
+        letters = [c for c in w if c.isalpha()]
+        if len(letters) > 1 and all(c.isupper() for c in letters):
+            return w.title()
+        return w
+    title = " ".join(fix_word(w) for w in title.split())
+    # Fix apostrophe title-case issue: "It'S" → "It's"
+    title = re.sub(r"'([A-Z])", lambda m: "'" + m.group(1).lower(), title)
     return title
 
 
