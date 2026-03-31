@@ -25,23 +25,24 @@
 
 | Date | Artist |
 |------|--------|
-| Wed Apr 01 | Slavic Soul Party |
-| Thu Apr 02 | That'S MY BOY |
+| Tue Mar 31 | Slavic Soul Party |
+| Wed Apr 01 | That's My Boy |
 | Thu Apr 02 | Mamady Kouyate's Mandingo Ambassadors |
-| Fri Apr 03 | Combo Daguerre |
+| Thu Apr 02 | Combo Daguerre |
 | Fri Apr 03 | Imal Gnawa |
-| Fri Apr 03 | THE Justin Mullens Quintet |
-| Sat Apr 04 | Eureka Shoes |
-| Sat Apr 04 | BIG Lazy |
+| Fri Apr 03 | The Justin Mullens Quintet |
+| Fri Apr 03 | Eureka Shoes |
+| Sat Apr 04 | Big Lazy |
 | Sat Apr 04 | Dirty Desmonds |
 | Sat Apr 04 | Brandon Seabrook |
-| Sun Apr 05 | Simon Hanes' Tsons OF Tsunami |
-| Sun Apr 05 | Banda DE LOS Muertos |
+| Sat Apr 04 | Simon Hanes' Tsons Of Tsunami |
+| Sun Apr 05 | Banda De Los Muertos |
 | Sun Apr 05 | Giancarlo Vulcano's Radio Hour |
-| Mon Apr 06 | BEN Perowsky'S Moodswing Orchestra |
+| Sun Apr 05 | Ben Perowsky's Moodswing Orchestra |
 | Mon Apr 06 | Daisy Castro |
-| Tue Apr 07 | Elvira Y LA Trietnia |
+| Mon Apr 06 | Elvira Y La Trietnia |
 | Tue Apr 07 | Tamar Korn & A Kornucopia |
+| Tue Apr 07 | Slavic Soul Party |
 
 ---
 
