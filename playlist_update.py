@@ -6,14 +6,13 @@ from datetime import date, datetime, timedelta
 import requests
 from bs4 import BeautifulSoup
 import spotipy
-from spotipy.exceptions import SpotifyException
 from spotipy.oauth2 import SpotifyOAuth
 
 logging.basicConfig(level=logging.INFO, format="%(levelname)s: %(message)s")
 log = logging.getLogger(__name__)
 
 PLAYLIST_NAME = "Brooklyn Jazz Weekly"
-SCOPE = "playlist-read-private playlist-modify-public playlist-modify-private user-read-private"
+SCOPE = "playlist-read-private playlist-modify-public playlist-modify-private"
 TRACKS_PER_ARTIST = 3
 
 
@@ -288,15 +287,13 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
         log.warning(f"  MISMATCH (superset): searched {artist_name!r}, got {artist['name']!r} — skipping")
         return []
 
-    try:
-        top = sp._get("artists/" + artist["id"] + "/top-tracks", market="US")
-    except SpotifyException as e:
-        log.warning(f"  Could not get top tracks for {artist['name']!r}: {e.http_status}")
-        return []
-    tracks = top["tracks"][:TRACKS_PER_ARTIST]
+    track_results = sp.search(q=f'artist:"{artist["name"]}"', type="track", limit=10)
+    tracks = track_results["tracks"]["items"]
     if not tracks:
         log.warning(f"  No tracks found for {artist['name']!r}")
         return []
+    tracks.sort(key=lambda t: t["popularity"], reverse=True)
+    tracks = tracks[:TRACKS_PER_ARTIST]
     log.info(f"  {artist['name']!r}: {[t['name'] for t in tracks]}")
     return [t["uri"] for t in tracks]
 
