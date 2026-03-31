@@ -91,7 +91,7 @@ def clean_artist_name(title: str) -> str:
 
 
 def _filter_future_events(events: list[dict], date_fmt: str) -> list[dict]:
-    """Remove events whose date is in the past. Events with unparseable dates are kept."""
+    """Remove events whose date is in the past and normalize to 'Tue Apr 01' format."""
     today = date.today()
     out = []
     for e in events:
@@ -100,6 +100,7 @@ def _filter_future_events(events: list[dict], date_fmt: str) -> list[dict]:
                 parsed = datetime.strptime(e["date"], date_fmt).date()
                 if parsed < today:
                     continue
+                e = {**e, "date": parsed.strftime("%a %b %d")}
             except ValueError:
                 pass
         out.append(e)
@@ -213,6 +214,7 @@ def scrape_barbes() -> list[dict]:
                     parsed = datetime.strptime(f"{date_str} {today.year}", "%a %b %d %Y").date()
                     if parsed < today or parsed > cutoff:
                         continue
+                    date_str = parsed.strftime("%a %b %d")
                 except ValueError:
                     pass  # Unparseable date — include it
             events.append({"artist": a, "date": date_str})
