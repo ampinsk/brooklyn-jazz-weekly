@@ -79,7 +79,7 @@ def clean_artist_name(title: str) -> str:
     if re.match(r'^[A-Z][A-Za-z]+s?$', title) and len(title.split()) == 1 and len(title) < 12:
         return ""
     # Title-case names that are fully uppercase (Barbes events come in all caps)
-    if title == title.upper() and any(c.isalpha() for c in title):
+    if any(c.isalpha() for c in title) and all(c.isupper() for c in title if c.isalpha()):
         title = title.title()
         # Fix apostrophe title-case issue: "It'S" → "It's"
         title = re.sub(r"'([A-Z])", lambda m: "'" + m.group(1).lower(), title)
@@ -190,9 +190,7 @@ def scrape_barbes() -> list[dict]:
             if date_str:
                 try:
                     parsed = datetime.strptime(f"{date_str} {today.year}", "%a %b %d %Y").date()
-                    if parsed < today:
-                        parsed = parsed.replace(year=today.year + 1)
-                    if parsed > cutoff:
+                    if parsed < today or parsed > cutoff:
                         continue
                 except ValueError:
                     pass  # Unparseable date — include it
@@ -244,9 +242,36 @@ def find_or_create_playlist(sp: spotipy.Spotify, name: str) -> str:
     return pl["id"]
 
 
+_ENSEMBLE_SUFFIXES = re.compile(
+    r'\s+(orchestra|quartet|quintet|trio|duo|band|ensemble|group|collective|project|experience)$',
+    re.IGNORECASE,
+)
+
+
+def _search_artist(sp: spotipy.Spotify, name: str):
+    results = sp.search(q=f'artist:"{name}"', type="artist", limit=1)
+    return results["artists"]["items"]
+
+
+def _fallback_names(artist_name: str) -> list[str]:
+    """Generate shorter name variants to try if the full name search fails."""
+    candidates = []
+    if "&" in artist_name:
+        candidates.append(artist_name.split("&")[0].strip())
+    stripped = _ENSEMBLE_SUFFIXES.sub("", artist_name).strip()
+    if stripped != artist_name:
+        candidates.append(stripped)
+    return candidates
+
+
 def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
-    results = sp.search(q=f'artist:"{artist_name}"', type="artist", limit=1)
-    items = results["artists"]["items"]
+    items = _search_artist(sp, artist_name)
+    if not items:
+        for short in _fallback_names(artist_name):
+            items = _search_artist(sp, short)
+            if items:
+                log.info(f"  Fell back to {short!r} for {artist_name!r}")
+                break
     if not items:
         log.warning(f"  NOT FOUND on Spotify: {artist_name!r}")
         return []
@@ -262,8 +287,8 @@ def get_top_tracks(sp: spotipy.Spotify, artist_name: str) -> list[str]:
         log.warning(f"  MISMATCH (superset): searched {artist_name!r}, got {artist['name']!r} — skipping")
         return []
 
-    track_results = sp.search(q=f'artist:"{artist["name"]}"', type="track", limit=TRACKS_PER_ARTIST)
-    tracks = track_results["tracks"]["items"]
+    top = sp.artist_top_tracks(artist["id"], country="US")
+    tracks = top["tracks"][:TRACKS_PER_ARTIST]
     if not tracks:
         log.warning(f"  No tracks found for {artist['name']!r}")
         return []
