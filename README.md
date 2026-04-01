@@ -1,5 +1,5 @@
 # Brooklyn Jazz Weekly
-*Updated: March 31, 2026*
+*Updated: April 01, 2026*
 
 ---
 
@@ -8,7 +8,6 @@
 
 | Date | Artist |
 |------|--------|
-| Tue Mar 31 | Kayla Williams Quartet |
 | Wed Apr 01 | Jim Oblon |
 | Thu Apr 02 | Luisito Quintero & 3rd Element |
 | Fri Apr 03 | Binky Griptite Orchestra |
@@ -25,8 +24,7 @@
 
 | Date | Artist |
 |------|--------|
-| Tue Mar 31 | Slavic Soul Party |
-| Wed Apr 01 | That's My Boy |
+|  | That's My Boy |
 | Thu Apr 02 | Mamady Kouyate's Mandingo Ambassadors |
 | Thu Apr 02 | Combo Daguerre |
 | Fri Apr 03 | Imal Gnawa |
@@ -43,6 +41,8 @@
 | Mon Apr 06 | Elvira Y La Trietnia |
 | Tue Apr 07 | Tamar Korn & A Kornucopia |
 | Tue Apr 07 | Slavic Soul Party |
+| Wed Apr 08 | Café Aman |
+| Wed Apr 08 | Mamady Kouyate's Mandingo Ambassadors |
 
 ---
 
