@@ -170,10 +170,10 @@ def scrape_barbes() -> list[dict]:
                   wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(4000)
 
-        # Each Viewcy event card has its own date in "Apr 1, 2026 • time" format.
-        # Find date by searching upward from each H1 within its own card.
+        # Walk up from each H1 until we find a container with exactly one date —
+        # that's the event card level. Multiple dates means we've gone too high.
         dom_events = page.evaluate("""() => {
-            const DATE_RE = /^[A-Z][a-z]{2}\\s+\\d{1,2},\\s+\\d{4}/;
+            const DATE_RE = /[A-Z][a-z]{2}\\s+\\d{1,2},\\s+\\d{4}/g;
             const events = [];
             for (const h1 of document.querySelectorAll('h1')) {
                 const title = h1.innerText?.trim();
@@ -181,16 +181,11 @@ def scrape_barbes() -> list[dict]:
                 let dateText = '';
                 let node = h1.parentElement;
                 for (let i = 0; i < 10 && node; i++) {
-                    for (const el of node.querySelectorAll('*')) {
-                        if (el.children.length === 0) {
-                            const t = el.innerText?.trim();
-                            if (t && DATE_RE.test(t)) {
-                                dateText = t.split('\\u2022')[0].trim(); // strip "• time"
-                                break;
-                            }
-                        }
+                    const matches = (node.innerText || '').match(DATE_RE);
+                    if (matches) {
+                        if (matches.length === 1) { dateText = matches[0]; }
+                        break; // stop whether 1 or many dates found
                     }
-                    if (dateText) break;
                     node = node.parentElement;
                 }
                 events.push({ title, date: dateText });
