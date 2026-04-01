@@ -170,16 +170,19 @@ def scrape_barbes() -> list[dict]:
                   wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(4000)
 
-        # Walk all H1s and SPANs in DOM order; track the most recently seen date span
-        # so each event gets the date that precedes it, not the next section's date.
+        # Walk all H1s and date elements in DOM order; track the most recently seen date.
+        # Viewcy may omit the date header for today's events, so those come back with date=''.
         dom_events = page.evaluate("""() => {
             const DATE_RE = /^[A-Z][a-z]{2},\\s[A-Z][a-z]{2}\\s\\d/;
             const events = [];
             let currentDate = '';
-            for (const el of document.querySelectorAll('h1, span')) {
-                if (el.tagName === 'SPAN') {
+            for (const el of document.querySelectorAll('h1, span, div')) {
+                if (el.tagName !== 'H1') {
+                    // Only treat leaf-ish elements as date labels to avoid matching
+                    // container divs that include nested event text
                     const t = el.innerText?.trim();
-                    if (t && DATE_RE.test(t)) currentDate = t;
+                    if (t && DATE_RE.test(t) && el.children.length === 0)
+                        currentDate = t;
                 } else {
                     const title = el.innerText?.trim();
                     if (title) events.push({ title, date: currentDate });
@@ -190,8 +193,6 @@ def scrape_barbes() -> list[dict]:
 
         browser.close()
 
-    log.info(f"Barbes raw DOM events: {dom_events}")
-
     if dom_events:
         events = []
         today = date.today()
@@ -200,10 +201,10 @@ def scrape_barbes() -> list[dict]:
             a = clean_artist_name(e["title"])
             if not a:
                 continue
-            # "Sat, Mar 28 2026" → "Sat Mar 28"
-            parts = e["date"].replace(',', '').split()
-            date_str = ' '.join(parts[:3]) if len(parts) >= 3 else e["date"]
-            # Filter to events within the next 14 days
+            # "Sat, Mar 28 2026" → "Sat Mar 28"; missing date → today
+            raw_date = e["date"] or today.strftime("%a, %b %d %Y")
+            parts = raw_date.replace(',', '').split()
+            date_str = ' '.join(parts[:3]) if len(parts) >= 3 else raw_date
             if date_str:
                 try:
                     parsed = datetime.strptime(f"{date_str} {today.year}", "%a %b %d %Y").date()
