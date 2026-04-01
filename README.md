@@ -16,6 +16,7 @@
 | Mon Apr 06 | GTO Trio |
 | Tue Apr 07 | Santiago Leibson Trio |
 | Thu Apr 09 | Kavita Shah Quintet ft. Leo Genovese | François Moutin | Vinícius Gomes | Ferenc Nemeth |
+| Fri Apr 10 | Manuel Valera |
 
 ---
 
@@ -24,7 +25,7 @@
 
 | Date | Artist |
 |------|--------|
-|  | That's My Boy |
+| Wed Apr 01 | That's My Boy |
 | Thu Apr 02 | Mamady Kouyate's Mandingo Ambassadors |
 | Thu Apr 02 | Combo Daguerre |
 | Fri Apr 03 | Imal Gnawa |
