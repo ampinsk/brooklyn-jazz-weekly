@@ -170,23 +170,30 @@ def scrape_barbes() -> list[dict]:
                   wait_until="networkidle", timeout=30000)
         page.wait_for_timeout(4000)
 
-        # Walk all H1s and date elements in DOM order; track the most recently seen date.
-        # Viewcy may omit the date header for today's events, so those come back with date=''.
+        # Each Viewcy event card has its own date in "Apr 1, 2026 • time" format.
+        # Find date by searching upward from each H1 within its own card.
         dom_events = page.evaluate("""() => {
-            const DATE_RE = /^[A-Z][a-z]{2},\\s[A-Z][a-z]{2}\\s\\d/;
+            const DATE_RE = /^[A-Z][a-z]{2}\\s+\\d{1,2},\\s+\\d{4}/;
             const events = [];
-            let currentDate = '';
-            for (const el of document.querySelectorAll('h1, span, div')) {
-                if (el.tagName !== 'H1') {
-                    // Only treat leaf-ish elements as date labels to avoid matching
-                    // container divs that include nested event text
-                    const t = el.innerText?.trim();
-                    if (t && DATE_RE.test(t) && el.children.length === 0)
-                        currentDate = t;
-                } else {
-                    const title = el.innerText?.trim();
-                    if (title) events.push({ title, date: currentDate });
+            for (const h1 of document.querySelectorAll('h1')) {
+                const title = h1.innerText?.trim();
+                if (!title) continue;
+                let dateText = '';
+                let node = h1.parentElement;
+                for (let i = 0; i < 10 && node; i++) {
+                    for (const el of node.querySelectorAll('*')) {
+                        if (el.children.length === 0) {
+                            const t = el.innerText?.trim();
+                            if (t && DATE_RE.test(t)) {
+                                dateText = t.split('\\u2022')[0].trim(); // strip "• time"
+                                break;
+                            }
+                        }
+                    }
+                    if (dateText) break;
+                    node = node.parentElement;
                 }
+                events.push({ title, date: dateText });
             }
             return events;
         }""")
@@ -201,18 +208,20 @@ def scrape_barbes() -> list[dict]:
             a = clean_artist_name(e["title"])
             if not a:
                 continue
-            # "Sat, Mar 28 2026" → "Sat Mar 28"; missing date → today
-            raw_date = e["date"] or today.strftime("%a, %b %d %Y")
-            parts = raw_date.replace(',', '').split()
-            date_str = ' '.join(parts[:3]) if len(parts) >= 3 else raw_date
-            if date_str:
+            # Parse "Apr 1, 2026" format; fall back to today if missing
+            raw_date = e["date"] or today.strftime("%b %d, %Y")
+            parsed = None
+            for fmt in ("%b %d, %Y", "%b %d %Y"):
                 try:
-                    parsed = datetime.strptime(f"{date_str} {today.year}", "%a %b %d %Y").date()
-                    if parsed < today or parsed > cutoff:
-                        continue
-                    date_str = parsed.strftime("%a %b %d")
+                    parsed = datetime.strptime(raw_date.strip(), fmt).date()
+                    break
                 except ValueError:
-                    pass  # Unparseable date — include it
+                    pass
+            if parsed is None:
+                continue  # unparseable, skip
+            if parsed < today or parsed > cutoff:
+                continue
+            date_str = parsed.strftime("%a %b %d")
             events.append({"artist": a, "date": date_str})
         log.info(f"Barbes: {len(events)} events in next 7 days (from embed)")
         return events
