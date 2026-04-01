@@ -190,6 +190,8 @@ def scrape_barbes() -> list[dict]:
 
         browser.close()
 
+    log.info(f"Barbes raw DOM events: {dom_events}")
+
     if dom_events:
         events = []
         today = date.today()
