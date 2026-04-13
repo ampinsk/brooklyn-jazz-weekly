@@ -1,5 +1,5 @@
 # Brooklyn Jazz Weekly
-*Updated: April 06, 2026*
+*Updated: April 13, 2026*
 
 ---
 
@@ -8,12 +8,13 @@
 
 | Date | Artist |
 |------|--------|
-| Mon Apr 06 | GTO Trio |
-| Tue Apr 07 | Santiago Leibson Trio |
-| Thu Apr 09 | Kavita Shah Quintet ft. Leo Genovese | François Moutin | Vinícius Gomes | Ferenc Nemeth |
-| Fri Apr 10 | Manuel Valera |
-| Sat Apr 11 | Gili Yalo |
-| Sun Apr 12 | Nir Felder Trio |
+| Mon Apr 13 | Gina D'Soto |
+| Tue Apr 14 | Milena Casado Quartet |
+| Thu Apr 16 | Marius Van Den Brink Quintet |
+| Fri Apr 17 | César Orozco & SonAhead |
+| Sat Apr 18 | Bigyuki X Jharis Yokley |
+| Sun Apr 19 | Molly Miller Trio |
+| Mon Apr 20 | Julieta Eugenio Trio |
 
 ---
 
@@ -22,89 +23,82 @@
 
 | Date | Artist |
 |------|--------|
-| Mon Apr 06 | Elvira Y La Trietnia |
-| Mon Apr 06 | Tamar Korn & A Kornucopia |
-| Mon Apr 06 | Slavic Soul Party |
-| Mon Apr 06 | Café Aman |
-| Mon Apr 06 | Mamady Kouyate's Mandingo Ambassadors |
-| Mon Apr 06 | Eszter Balint & Mamie Minch |
-| Mon Apr 06 | The Arntzen Clan |
-| Mon Apr 06 | Imposters Assembly |
-| Mon Apr 06 | Alex Asher & Slow Motion |
-| Mon Apr 06 | Guachinangos |
-| Mon Apr 06 | Brandon Seabrook |
-| Mon Apr 06 | Bill Carney's Jug Addicts |
-| Mon Apr 06 | Pangari And The Socialites |
-| Mon Apr 06 | Clube Do Choro |
-| Mon Apr 06 | Ben Monder / Theo Bleckmann |
-| Mon Apr 06 | Anita-mae & Friends |
-| Mon Apr 06 | DJ Roberto's Disco International |
-| Mon Apr 06 | El Vapor De Brooklyn |
-| Mon Apr 06 | Milagro Verde |
-| Mon Apr 06 | Vinnie Sperrazza / Sam Newsome |
-| Mon Apr 06 | Jeong Lim Yang Trio |
-| Mon Apr 06 | Noam Weinstein & Friends |
-| Mon Apr 06 | The Pre-war Ponies |
-| Mon Apr 06 | Guilherme Monteiro / James Buckley / Caito Sanchez |
-| Mon Apr 06 | Lucian Ban & Alex Harding |
-| Mon Apr 06 | Habbina Habbina |
-| Mon Apr 06 | Dirty Desmonds |
-| Mon Apr 06 | The Four Bags |
-| Mon Apr 06 | Living Language |
-| Mon Apr 06 | Miss Maybell & The Ragtime Romeos |
-| Mon Apr 06 | Linda Paúla Marcos |
-| Mon Apr 06 | Baklava Express |
-| Mon Apr 06 | Will Bernard |
-| Mon Apr 06 | Tropical Vortex |
-| Mon Apr 06 | The Danny Fox Trio |
-| Mon Apr 06 | Bkcm Jazz Travelers Faculty Concert |
-| Mon Apr 06 | Fundraiser Cabaret For Hawaii Flood Relief |
-| Mon Apr 06 | Red Baraat |
-| Mon Apr 06 | Oscar Noriega's Crooked Quartet |
-| Mon Apr 06 | Mamie Minch |
-| Mon Apr 06 | Spanglish Fly |
-| Mon Apr 06 | Chia's Dance Party |
-| Mon Apr 06 | Pipiris Nights |
-| Mon Apr 06 | Grant Gordy / Dennis Lichtman Duo |
-| Mon Apr 06 | Reginald Chapman's Chaphouse |
-| Mon Apr 06 | Dana Lyn & Kyle Sanna |
-| Mon Apr 06 | Yayo Serka |
-| Mon Apr 06 | Three Blind Mice |
-| Mon Apr 06 | Marty Ehrlich |
-| Mon Apr 06 | Leo Sidran |
-| Mon Apr 06 | Rasin Okan |
-| Mon Apr 06 | Las Rubias Del Norte |
-| Mon Apr 06 | Big Lazy |
-| Mon Apr 06 | Sonelius Smith & Adam Kahan |
-| Mon Apr 06 | Banda De Los Muertos |
-| Mon Apr 06 | Giancarlo Vulcano's Radio Hour |
-| Mon Apr 06 | Stephane Wrembel |
-| Mon Apr 06 | Daisy Castro |
-| Mon Apr 06 | The Andy Statman Trio |
-| Mon Apr 06 | Reed Turchi |
-| Mon Apr 06 | Imal Gnawa |
-| Mon Apr 06 | Simon Hanes' Tsons Of Tsunami |
-| Mon Apr 06 | Rana Santacruz |
-| Mon Apr 06 | Toomai String Quintet |
-| Mon Apr 06 | Gili Yalo |
-| Mon Apr 06 | Ben Monder |
-| Mon Apr 06 | Olli Soikkeli |
-| Mon Apr 06 | Brian Drye Quintet |
-| Mon Apr 06 | Ben Perowsky's Moodswing Orchestra |
-| Mon Apr 06 | Meshuganah Mambo |
-| Mon Apr 06 | Beyza Yazgan Plays Bach's Complete Goldberg Variations |
-| Mon Apr 06 | Yallah Yallah |
-| Mon Apr 06 | Cat Casual & The Final Word |
-| Mon Apr 06 | Django A Go Go, closing night |
-| Mon Apr 06 | New Old Timers |
-| Mon Apr 06 | Martin Vejarano's Chia's Dance Party |
-| Mon Apr 06 | Curtis Hasselbring & His Curhachestra |
-| Mon Apr 06 | That's My Boy |
-| Mon Apr 06 | Aquarium Solarium |
-| Mon Apr 06 | Brian Drye |
-| Mon Apr 06 | Villa Delirium |
-| Mon Apr 06 | The Suznak Trio |
-| Mon Apr 06 | Eleni Mandell |
+| Mon Apr 13 | El Vapor De Brooklyn |
+| Mon Apr 13 | Milagro Verde |
+| Mon Apr 13 | Vinnie Sperrazza / Sam Newsome |
+| Mon Apr 13 | Slavic Soul Party |
+| Mon Apr 13 | Jeong Lim Yang Trio |
+| Mon Apr 13 | Mamady Kouyate's Mandingo Ambassadors |
+| Mon Apr 13 | Noam Weinstein & Friends |
+| Mon Apr 13 | The Pre-war Ponies |
+| Mon Apr 13 | Guilherme Monteiro / James Buckley / Caito Sanchez |
+| Mon Apr 13 | Michelle Alany |
+| Mon Apr 13 | Lucian Ban & Alex Harding |
+| Mon Apr 13 | Habbina Habbina |
+| Mon Apr 13 | Dirty Desmonds |
+| Mon Apr 13 | Brandon Seabrook |
+| Mon Apr 13 | The Four Bags |
+| Mon Apr 13 | Living Language |
+| Mon Apr 13 | Clube Do Choro |
+| Mon Apr 13 | Miss Maybell & The Ragtime Romeos |
+| Mon Apr 13 | Linda Paúla Marcos |
+| Mon Apr 13 | Baklava Express |
+| Mon Apr 13 | Will Bernard |
+| Mon Apr 13 | Tropical Vortex |
+| Mon Apr 13 | The Danny Fox Trio |
+| Mon Apr 13 | Bkcm Jazz Travelers Faculty Concert |
+| Mon Apr 13 | Fundraiser Cabaret For Hawaii Flood Relief |
+| Mon Apr 13 | Red Baraat |
+| Mon Apr 13 | Oscar Noriega's Crooked Quartet |
+| Mon Apr 13 | Mamie Minch |
+| Mon Apr 13 | Spanglish Fly |
+| Mon Apr 13 | Chia's Dance Party |
+| Mon Apr 13 | Pipiris Nights |
+| Mon Apr 13 | Grant Gordy / Dennis Lichtman Duo |
+| Mon Apr 13 | Reginald Chapman's Chaphouse |
+| Mon Apr 13 | Dana Lyn & Kyle Sanna |
+| Mon Apr 13 | Yayo Serka |
+| Mon Apr 13 | Three Blind Mice |
+| Mon Apr 13 | Marty Ehrlich |
+| Mon Apr 13 | Leo Sidran |
+| Mon Apr 13 | Rasin Okan |
+| Mon Apr 13 | Las Rubias Del Norte |
+| Mon Apr 13 | Big Lazy |
+| Mon Apr 13 | Sonelius Smith & Adam Kahan |
+| Mon Apr 13 | Banda De Los Muertos |
+| Mon Apr 13 | Giancarlo Vulcano's Radio Hour |
+| Mon Apr 13 | Stephane Wrembel |
+| Mon Apr 13 | Daisy Castro |
+| Mon Apr 13 | Tamar Korn & A Kornucopia |
+| Mon Apr 13 | The Andy Statman Trio |
+| Mon Apr 13 | Reed Turchi |
+| Mon Apr 13 | Imal Gnawa |
+| Mon Apr 13 | Simon Hanes' Tsons Of Tsunami |
+| Mon Apr 13 | Rana Santacruz |
+| Mon Apr 13 | Toomai String Quintet |
+| Mon Apr 13 | Gili Yalo |
+| Mon Apr 13 | Ben Monder |
+| Mon Apr 13 | Olli Soikkeli |
+| Mon Apr 13 | Brian Drye Quintet |
+| Mon Apr 13 | Ben Perowsky's Moodswing Orchestra |
+| Mon Apr 13 | Eszter Balint & Mamie Minch |
+| Mon Apr 13 | Meshuganah Mambo |
+| Mon Apr 13 | Beyza Yazgan Plays Bach's Complete Goldberg Variations |
+| Mon Apr 13 | Yallah Yallah |
+| Mon Apr 13 | Cat Casual & The Final Word |
+| Mon Apr 13 | Guachinangos |
+| Mon Apr 13 | Django A Go Go, closing night |
+| Mon Apr 13 | Elvira Y La Trietnia |
+| Mon Apr 13 | Contrapunctus |
+| Mon Apr 13 | New Old Timers |
+| Mon Apr 13 | Martin Vejarano's Chia's Dance Party |
+| Mon Apr 13 | Curtis Hasselbring & His Curhachestra |
+| Mon Apr 13 | That's My Boy |
+| Mon Apr 13 | Aquarium Solarium |
+| Mon Apr 13 | Brian Drye |
+| Mon Apr 13 | Villa Delirium |
+| Mon Apr 13 | The Suznak Trio |
+| Mon Apr 13 | Eleni Mandell |
 
 ---
 
