@@ -1,5 +1,5 @@
 # Brooklyn Jazz Weekly
-*Updated: June 08, 2026*
+*Updated: June 22, 2026*
 
 ---
 
@@ -8,15 +8,15 @@
 
 | Date | Artist |
 |------|--------|
-| June 8, 2026 | Jeremy Gustin | Henry Fraser | Jacob Drab |
-| June 9, 2026 | Rob Duguay's Outernet ft. Anwar Marshall | Morgan Price | David Gibson |
-| June 10, 2026 | Justin Purtill Trio ft |
-| June 12, 2026 | Álvaro Benavides Group |
-| June 13, 2026 | Fred Thomas of The Jb's |
-| June 14, 2026 | The Smoota Tête-a-Tête / Moon Radio |
-| June 15, 2026 | Dos Orillas |
-| June 16, 2026 | Firas Zreik |
-| June 17, 2026 | Samuel Torres & Trio Libre ft. Carmen Staaf & Daniel Neville |
+| June 22, 2026 | Elé Howell Quintet |
+| June 23, 2026 | Marta Sanchez Trio |
+| June 24, 2026 | Rocket Sci |
+| June 25, 2026 | Chico Pinheiro Quartet ft. Eric Doob | Or Bareket | |
+| June 26, 2026 | Sugartone Brass Band |
+| June 27, 2026 | Amayo & Friends play Lion Awakes |
+| June 28, 2026 | Guillermo Klein Quintet ft. Rogério Boccato / Vinícius Gomes / Rodrigo Recabarren / Sebastián Urquiza |
+| June 29, 2026 | Alex Asher 'Slow Motion' Album Release Show |
+| June 30, 2026 | Jim Oblon |
 
 ---
 
@@ -25,74 +25,82 @@
 
 | Date | Artist |
 |------|--------|
-| Mon Jun 08 | Brian Drye |
-| Mon Jun 08 | Milagro Verde |
-| Mon Jun 08 | Akiko Pavolka |
-| Mon Jun 08 | Slavic Soul Party |
-| Mon Jun 08 | Layale Chaker | Kinan Azmeh & Kyle Sanna |
-| Mon Jun 08 | Mamady Kouyate's Mandingo Ambassadors |
-| Mon Jun 08 | Eszter Balint & Mamie Minch |
-| Mon Jun 08 | Baklava Express |
-| Mon Jun 08 | Oscar Noriega's Crooked Quartet |
-| Mon Jun 08 | Parody Of Art |
-| Mon Jun 08 | Living Language |
-| Mon Jun 08 | Gatos Feroces |
-| Mon Jun 08 | Maryam Turkey |
-| Mon Jun 08 | Sanda Weigl & Friends |
-| Mon Jun 08 | Dingonek Street Band |
-| Mon Jun 08 | Clube Do Choro |
-| Mon Jun 08 | Anita-mae & Friends |
-| Mon Jun 08 | Stephane Wrembel |
-| Mon Jun 08 | Red Baraat |
-| Mon Jun 08 | Dayna Kurtz |
-| Mon Jun 08 | Tropical Vortex |
-| Mon Jun 08 | The Danny Fox Trio |
-| Mon Jun 08 | Ralph Alessi |
-| Mon Jun 08 | The Pre-war Ponies |
-| Mon Jun 08 | Simon Hanes' Tsons Of Tsunami |
-| Mon Jun 08 | Habbina Habbina |
-| Mon Jun 08 | Dirty Desmonds |
-| Mon Jun 08 | The Four Bags |
-| Mon Jun 08 | Spanglish Fly |
-| Mon Jun 08 | Miss Maybell & The Ragtime Romeos |
-| Mon Jun 08 | James Carney Quartet |
-| Mon Jun 08 | Myla Goldberg & Quince Marcum |
-| Mon Jun 08 | Elvira Y La Trietnia |
-| Mon Jun 08 | Banning Eyre |
-| Mon Jun 08 | Michael Winograd |
-| Mon Jun 08 | The Gerswhin Brothers |
-| Mon Jun 08 | Meshuganah Mambo |
-| Mon Jun 08 | Mamie Minch |
-| Mon Jun 08 | Super Yamba |
-| Mon Jun 08 | A Salon Series |
-| Mon Jun 08 | Michael Bates' Acrobat |
-| Mon Jun 08 | Trio Alaara |
-| Mon Jun 08 | Reginald Chapman's Chaphouse |
-| Mon Jun 08 | Dana Lyn & Kyle Sanna |
-| Mon Jun 08 | Jeff Davis Band |
-| Mon Jun 08 | The Royale Tango Trio |
-| Mon Jun 08 | Villa Delirium |
-| Mon Jun 08 | Almog Sharvit |
-| Mon Jun 08 | Monte, Mar Y Rio |
-| Mon Jun 08 | Stephan Crump |
-| Mon Jun 08 | Buck And A Quarter Quartet |
-| Mon Jun 08 | The Suznak Trio |
-| Mon Jun 08 | Aurora Nealand & Boma Bango |
-| Mon Jun 08 | Pangari And The Socialites |
-| Mon Jun 08 | Ari Folman-cohen |
-| Mon Jun 08 | Will Bernard |
-| Mon Jun 08 | The Suitcase Junket |
-| Mon Jun 08 | Aurora Nealand's Monocle |
-| Mon Jun 08 | Zemog El Gallo Bueno |
-| Mon Jun 08 | Will Holshouser |
-| Mon Jun 08 | Eleni Mandell |
-| Mon Jun 08 | Aurora Nealand & The Royal Roses North |
-| Mon Jun 08 | Joel Harrison Guitar Choir |
-| Mon Jun 08 | Bill Carney's Jug Addicts |
-| Mon Jun 08 | Kenny Warren's Sweet World |
-| Mon Jun 08 | Bona Fideo Duo |
-| Mon Jun 08 | Rana Santacruz |
-| Mon Jun 08 | The Unusual, Extraordinary, Curious, and Unconventional Songbook |
+| Mon Jun 22 | Myla Goldberg & Quince Marcum |
+| Mon Jun 22 | Elvira Y La Trietnia |
+| Mon Jun 22 | Banning Eyre |
+| Mon Jun 22 | Slavic Soul Party |
+| Mon Jun 22 | Michael Winograd |
+| Mon Jun 22 | Mamady Kouyate's Mandingo Ambassadors |
+| Mon Jun 22 | The Gerswhin Brothers |
+| Mon Jun 22 | Meshuganah Mambo |
+| Mon Jun 22 | Oscar Noriega's Crooked Quartet |
+| Mon Jun 22 | Mamie Minch |
+| Mon Jun 22 | Chris Williams |
+| Mon Jun 22 | Maryam Turkey |
+| Mon Jun 22 | Michael Bates' Acrobat |
+| Mon Jun 22 | Super Yamba |
+| Mon Jun 22 | Clube Do Choro |
+| Mon Jun 22 | Trio Alaara |
+| Mon Jun 22 | Reginald Chapman's Chaphouse |
+| Mon Jun 22 | Red Baraat |
+| Mon Jun 22 | Dana Lyn & Kyle Sanna |
+| Mon Jun 22 | Jeff Davis Band |
+| Mon Jun 22 | The Andy Statman Trio |
+| Mon Jun 22 | The Royale Tango Trio |
+| Mon Jun 22 | Imal Gnawa |
+| Mon Jun 22 | Villa Delirium |
+| Mon Jun 22 | Katy Chan |
+| Mon Jun 22 | Simon Hanes' Tsons Of Tsunami |
+| Mon Jun 22 | Banda De Los Muertos |
+| Mon Jun 22 | Giancarlo Vulcano's Radio Hour |
+| Mon Jun 22 | Almog Sharvit |
+| Mon Jun 22 | Daisy Castro |
+| Mon Jun 22 | Tamar Korn & A Kornucopia |
+| Mon Jun 22 | Megumi & Friends |
+| Mon Jun 22 | Stephan Crump |
+| Mon Jun 22 | Buck And A Quarter Quartet |
+| Mon Jun 22 | The Suznak Trio |
+| Mon Jun 22 | Aurora Nealand & Boma Bango |
+| Mon Jun 22 | Jeremiah Lockwood |
+| Mon Jun 22 | Clay Ross |
+| Mon Jun 22 | Pangari And The Socialites |
+| Mon Jun 22 | Ari Folman-cohen |
+| Mon Jun 22 | Linda Paula Marcos |
+| Mon Jun 22 | Dayna Kurtz |
+| Mon Jun 22 | Milagro Verde |
+| Mon Jun 22 | Will Bernard |
+| Mon Jun 22 | The Pre-war Ponies |
+| Mon Jun 22 | The Suitcase Junket |
+| Mon Jun 22 | Aurora Nealand's Monocle |
+| Mon Jun 22 | Zemog El Gallo Bueno |
+| Mon Jun 22 | Dirty Desmonds |
+| Mon Jun 22 | Cheo Y Los Consentidos De La Casa |
+| Mon Jun 22 | Miss Maybell & The Ragtime Romeos |
+| Mon Jun 22 | Will Holshouser |
+| Mon Jun 22 | Flutes And Roots |
+| Mon Jun 22 | A.b.e.l.a |
+| Mon Jun 22 | Eleni Mandell |
+| Mon Jun 22 | La Manga |
+| Mon Jun 22 | a montly Salon Series |
+| Mon Jun 22 | Aurora Nealand & The Royal Roses North |
+| Mon Jun 22 | Eleonore Biezunski & Friends |
+| Mon Jun 22 | Tropical Vortex |
+| Mon Jun 22 | Monte, Mar Y Rio |
+| Mon Jun 22 | Joel Harrison Guitar Choir |
+| Mon Jun 22 | The Arntzen Family & Friends |
+| Mon Jun 22 | Bill Carney's Jug Addicts |
+| Mon Jun 22 | Stephane Wrembel |
+| Mon Jun 22 | Michaël Attias |
+| Mon Jun 22 | Kenny Warren's Sweet World |
+| Mon Jun 22 | Bona Fideo Duo |
+| Mon Jun 22 | Michael Attias |
+| Mon Jun 22 | Rana Santacruz |
+| Mon Jun 22 | Eleonore Weill |
+| Mon Jun 22 | Session Americana |
+| Mon Jun 22 | The Unusual, Extraordinary, Curious, and Unconventional Songbook |
+| Mon Jun 22 | Lucian Ban and Mat Maneri |
+| Mon Jun 22 | The Four Bags |
+| Mon Jun 22 | Dingonek Street Band |
 
 ---
 
