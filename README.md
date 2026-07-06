@@ -1,5 +1,5 @@
 # Brooklyn Jazz Weekly
-*Updated: June 29, 2026*
+*Updated: July 06, 2026*
 
 ---
 
@@ -8,16 +8,16 @@
 
 | Date | Artist |
 |------|--------|
-| June 29, 2026 | Alex Asher 'Slow Motion' Album Release Show |
-| June 30, 2026 | Jim Oblon |
-| July 1, 2026 | Christina Courtin |
-| July 2, 2026 | Jesse Fischer Trio ft. Or Bareket & Elé Howell |
-| July 3, 2026 | Street Life! A Tribute to The Crusaders |
-| July 4, 2026 | Closed for Fourth Of July! |
-| July 5, 2026 | Tiga Jean-Baptiste |
 | July 6, 2026 | Jon Dryden's Pony ft |
 | July 7, 2026 | Big Lazy |
 | July 8, 2026 | Malaya Sol & The Soleros |
+| July 9, 2026 | Allison Miller Boom Tic Boom |
+| July 10, 2026 | César Orozco & SonAhead |
+| July 11, 2026 | Junior Scaife & The Band |
+| July 12, 2026 | Los Cielitos |
+| July 13, 2026 | Yacine Boularès Quartet |
+| July 14, 2026 | Bobby Hawk |
+| July 15, 2026 | Leo Genovese Vinchuca |
 
 ---
 
@@ -26,77 +26,76 @@
 
 | Date | Artist |
 |------|--------|
-| Mon Jun 29 | Dana Lyn & Kyle Sanna |
-| Mon Jun 29 | Jeff Davis Band |
-| Mon Jun 29 | Slavic Soul Party |
-| Mon Jun 29 | The Andy Statman Trio |
-| Mon Jun 29 | Mamady Kouyate's Mandingo Ambassadors |
-| Mon Jun 29 | The Royale Tango Trio |
-| Mon Jun 29 | Imal Gnawa |
-| Mon Jun 29 | Oscar Noriega's Crooked Quartet |
-| Mon Jun 29 | Villa Delirium |
-| Mon Jun 29 | Katy Chan |
-| Mon Jun 29 | Simon Hanes' Tsons Of Tsunami |
-| Mon Jun 29 | Banda De Los Muertos |
-| Mon Jun 29 | Clube Do Choro |
-| Mon Jun 29 | Giancarlo Vulcano's Radio Hour |
-| Mon Jun 29 | Almog Sharvit |
-| Mon Jun 29 | Daisy Castro |
-| Mon Jun 29 | Caito Sanchez |
-| Mon Jun 29 | Tamar Korn & A Kornucopia |
-| Mon Jun 29 | Megumi & Friends |
-| Mon Jun 29 | Stephan Crump |
-| Mon Jun 29 | Buck And A Quarter Quartet |
-| Mon Jun 29 | The Suznak Trio |
-| Mon Jun 29 | Aurora Nealand & Boma Bango |
-| Mon Jun 29 | Jeremiah Lockwood |
-| Mon Jun 29 | Clay Ross |
-| Mon Jun 29 | Pangari And The Socialites |
-| Mon Jun 29 | Ari Folman-cohen |
-| Mon Jun 29 | Linda Paula Marcos |
-| Mon Jun 29 | Dayna Kurtz |
-| Mon Jun 29 | Milagro Verde |
-| Mon Jun 29 | Will Bernard |
-| Mon Jun 29 | The Pre-war Ponies |
-| Mon Jun 29 | The Suitcase Junket |
-| Mon Jun 29 | Aurora Nealand's Monocle |
-| Mon Jun 29 | Zemog El Gallo Bueno |
-| Mon Jun 29 | Dirty Desmonds |
-| Mon Jun 29 | Cheo Y Los Consentidos De La Casa |
-| Mon Jun 29 | Miss Maybell & The Ragtime Romeos |
-| Mon Jun 29 | Will Holshouser |
-| Mon Jun 29 | Flutes And Roots |
-| Mon Jun 29 | K8a |
-| Mon Jun 29 | Pierre De Gaillande |
-| Mon Jun 29 | Eleni Mandell |
-| Mon Jun 29 | Shoko Nagai's Tokala |
-| Mon Jun 29 | La Manga |
-| Mon Jun 29 | a monthly Salon Series |
-| Mon Jun 29 | Aurora Nealand & The Royal Roses North |
-| Mon Jun 29 | The Klezmographers |
-| Mon Jun 29 | A.b.e.l.a |
-| Mon Jun 29 | Akiko Pavolka |
-| Mon Jun 29 | Monte, Mar Y Rio |
-| Mon Jun 29 | Joel Harrison Guitar Choir |
-| Mon Jun 29 | The Arntzen Family & Friends |
-| Mon Jun 29 | Bill Carney's Jug Addicts |
-| Mon Jun 29 | Baklava Express |
-| Mon Jun 29 | Super Yamba |
-| Mon Jun 29 | Stephane Wrembel |
-| Mon Jun 29 | Michaël Attias |
-| Mon Jun 29 | Kenny Warren's Sweet World |
-| Mon Jun 29 | Bona Fideo Duo |
-| Mon Jun 29 | Michael Attias |
-| Mon Jun 29 | Rana Santacruz |
-| Mon Jun 29 | Aquarium Solarium |
-| Mon Jun 29 | Eleonore Weill |
-| Mon Jun 29 | Session Americana |
-| Mon Jun 29 | The Unusual, Extraordinary, Curious, and Unconventional Songbook |
-| Mon Jun 29 | Lucian Ban and Mat Maneri |
-| Mon Jun 29 | Eleonore Biezunski & Friends |
-| Mon Jun 29 | The Four Bags |
-| Mon Jun 29 | Meshuganah Mambo |
-| Mon Jun 29 | Dingonek Street Band |
+| Mon Jul 06 | Caito Sanchez |
+| Mon Jul 06 | Tamar Korn & A Kornucopia |
+| Mon Jul 06 | Slavic Soul Party |
+| Mon Jul 06 | Megumi & Friends |
+| Mon Jul 06 | Mamady Kouyate's Mandingo Ambassadors |
+| Mon Jul 06 | Stephan Crump |
+| Mon Jul 06 | Buck And A Quarter Quartet |
+| Mon Jul 06 | Oscar Noriega's Crooked Quartet |
+| Mon Jul 06 | The Suznak Trio |
+| Mon Jul 06 | Aurora Nealand & Boma Bango |
+| Mon Jul 06 | Jeremiah Lockwood |
+| Mon Jul 06 | Clay Ross" American Patchwork |
+| Mon Jul 06 | Pangari And The Socialites |
+| Mon Jul 06 | Clube Do Choro |
+| Mon Jul 06 | Ari Folman-cohen |
+| Mon Jul 06 | Linda Paula Marcos |
+| Mon Jul 06 | Dayna Kurtz |
+| Mon Jul 06 | Milagro Verde |
+| Mon Jul 06 | Will Bernard |
+| Mon Jul 06 | The Pre-war Ponies |
+| Mon Jul 06 | The Suitcase Junket |
+| Mon Jul 06 | Aurora Nealand's Monocle |
+| Mon Jul 06 | Zemog El Gallo Bueno |
+| Mon Jul 06 | Dirty Desmonds |
+| Mon Jul 06 | Moon Radio & The Smoota Tête-a-tête |
+| Mon Jul 06 | Cheo Y Los Consentidos De La Casa |
+| Mon Jul 06 | Miss Maybell & The Ragtime Romeos |
+| Mon Jul 06 | Will Holshouser |
+| Mon Jul 06 | Aquarium Solarium |
+| Mon Jul 06 | Flutes And Roots |
+| Mon Jul 06 | K8a |
+| Mon Jul 06 | Pierre De Gaillande |
+| Mon Jul 06 | Eleni Mandell |
+| Mon Jul 06 | Shoko Nagai's Tokala |
+| Mon Jul 06 | La Manga |
+| Mon Jul 06 | a monthly Salon Series |
+| Mon Jul 06 | Aurora Nealand & The Royal Roses North |
+| Mon Jul 06 | The Klezmographers |
+| Mon Jul 06 | Joel Forrester |
+| Mon Jul 06 | Dana Lyn & Kyle Sanna |
+| Mon Jul 06 | A.b.e.l.a |
+| Mon Jul 06 | Akiko Pavolka |
+| Mon Jul 06 | Monte, Mar Y Rio |
+| Mon Jul 06 | Joel Harrison Guitar Choir |
+| Mon Jul 06 | The Arntzen Family & Friends |
+| Mon Jul 06 | Bill Carney's Jug Addicts |
+| Mon Jul 06 | Baklava Express |
+| Mon Jul 06 | Super Yamba |
+| Mon Jul 06 | Giancarlo Vulcano's Radio Hour |
+| Mon Jul 06 | Stephane Wrembel |
+| Mon Jul 06 | Daisy Castro |
+| Mon Jul 06 | The Andy Statman Trio |
+| Mon Jul 06 | Imal Gnawa |
+| Mon Jul 06 | Michaël Attias |
+| Mon Jul 06 | Kenny Warren's Sweet World |
+| Mon Jul 06 | Bona Fideo Duo |
+| Mon Jul 06 | Jack Grace Band |
+| Mon Jul 06 | Michael Attias |
+| Mon Jul 06 | Rana Santacruz |
+| Mon Jul 06 | Simon Hanes' Tsons Of Tsunami |
+| Mon Jul 06 | Kane Mathis Trio |
+| Mon Jul 06 | Eleonore Weill |
+| Mon Jul 06 | Banda De Los Muertos |
+| Mon Jul 06 | Session Americana |
+| Mon Jul 06 | The Unusual, Extraordinary, Curious, and Unconventional Songbook |
+| Mon Jul 06 | Lucian Ban and Mat Maneri |
+| Mon Jul 06 | Eleonore Biezunski & Friends |
+| Mon Jul 06 | The Four Bags |
+| Mon Jul 06 | Meshuganah Mambo |
+| Mon Jul 06 | Dingonek Street Band |
 
 ---
 
